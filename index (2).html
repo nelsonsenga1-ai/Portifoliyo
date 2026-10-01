@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobConnect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #f1f3f8;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #6d5dfc;
+  --primary-2: #8b5cf6;
+  --success: #0f9f6e;
+  --warning: #c27a00;
+  --danger: #d14343;
+  --shadow: 0 16px 40px rgba(31, 41, 55, .08);
+  }
+* { 
+  box-sizing: border-box;
+ }
+body {   
+  margin: 0;
+   font-family: Inter, sans-serif; 
+   background: var(--bg); 
+   color: var(--text);
+  
+  }
+button, input, select { 
+  font: inherit; 
+  }
+button { 
+  cursor: pointer; 
+  }
+.app {
+   min-height: 100vh;
+    display: grid;
+     grid-template-columns: 260px 1fr; 
+  }
+.sidebar {
+   background: #11131b; 
+   color: #fff; 
+   padding: 22px 16px; 
+   display: flex; 
+   flex-direction: column; 
+  }
+.brand { display:flex;
+   gap: 10px;
+  align-items:center;
+  padding: 8px 10px 26px;
+  }
+.brand-mark {
+   width: 36px;
+   height:36px; 
+   border-radius: 12px; 
+   display:grid; 
+   place-items:center; 
+   background: linear-gradient(135deg,var(--primary),#a855f7); 
+   font-weight:800; 
+  }
+.brand-name { 
+  font-family: 'Space Grotesk'; 
+  font-weight: 700; font-size: 20px; 
+  }
+.nav-section { 
+  margin: 14px 8px 8px; 
+  color:#7f8494; 
+  text-transform:uppercase; 
+  letter-spacing:.08em; 
+  font-size:10px; 
+  font-weight:700;
+ }
+.nav { 
+  display:flex; 
+  flex-direction:column; 
+  gap:4px; 
+ }
+.nav button {
+  border:0; 
+  background:transparent; 
+  color:#b9bdc9; 
+  padding:11px 12px; 
+  border-radius:10px; 
+  display:flex; 
+  gap:11px; 
+  align-items:center; 
+  text-align:left; 
+  transition:.2s; 
+ }
+.nav button:hover,.nav button.active { 
+  background:#242735; 
+  color:#fff; 
+ }
+.nav-icon { 
+  width:20px; 
+  text-align:center; 
+}
+.sidebar-bottom {
+ margin-top:auto; 
+}
+.profile-mini {
+ display:flex; 
+ align-items:center; 
+ gap:10px; 
+ padding:14px 10px; 
+ border-top:1px solid #2a2d38; 
+}
+.avatar { 
+ width:38px; 
+ height:38px; 
+ border-radius:50%; 
+ display:grid; 
+ place-items:center; 
+ background:linear-gradient(135deg,#d8d5ff,#8b5cf6); 
+ color:#fff; 
+ font-weight:700; 
+}
+.profile-mini small { 
+ color:#9297a5; 
+ display:block; 
+ margin-top:2px; 
+}
+.main { 
+ min-width:0; 
+}
+.topbar { 
+ height:72px; 
+ background:rgba(255,255,255,.9); 
+ border-bottom:1px solid var(--border); 
+ display:flex; 
+ align-items:center; 
+ justify-content:space-between; 
+ padding:0 30px; 
+ position:sticky; 
+ top:0; 
+ z-index:10; 
+ backdrop-filter: blur(12px); 
+}
+.search { 
+ display:flex; 
+ align-items:center; 
+ gap:10px; 
+ background:var(--surface-2); 
+ border-radius:10px; 
+ padding:10px 14px; 
+ width:min(440px, 50vw); 
+}
+.search input { 
+ border:0; 
+ outline:0; 
+ background:transparent; 
+ width:100%; 
+}
+.top-actions { display:flex; gap:10px; align-items:center; }
+.icon-btn { width:38px; height:38px; border:1px solid var(--border); background:#fff; border-radius:10px; }
+.btn { border:0; border-radius:10px; padding:10px 15px; font-weight:600; transition:.2s; }
+.btn-primary { background:var(--primary); color:#fff; }
+.btn-primary:hover { filter:brightness(.95); transform:translateY(-1px); }
+.btn-secondary { background:var(--surface-2); color:var(--text); }
+.btn-outline { background:#fff; border:1px solid var(--border); color:var(--text); }
+.content { padding:30px; max-width:1600px; margin:auto; width:100%; }
+.page-head { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; margin-bottom:24px; }
+.page-head h1 { font-family:'Space Grotesk'; margin:0 0 6px; font-size:30px; }
+.page-head p { margin:0; color:var(--muted); }
+.actions { display:flex; gap:10px; }
+.grid { display:grid; gap:18px; }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.grid-3 { grid-template-columns:repeat(3,1fr); }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:20px; }
+.stat { display:flex; justify-content:space-between; align-items:flex-start; }
+.stat .label { color:var(--muted); font-size:13px; }
+.stat h2 { margin:8px 0 5px; font-size:28px; }
+.trend { font-size:12px; font-weight:600; color:var(--success); }
+.stat-icon { width:42px; height:42px; display:grid; place-items:center; border-radius:12px; background:#efedff; color:var(--primary); }
+.section-title { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.section-title h2 { font-size:18px; margin:0; }
+.section-title a { color:var(--primary); font-size:13px; font-weight:600; cursor:pointer; }
+.hero { background:linear-gradient(135deg,#161826,#2b2556); color:#fff; overflow:hidden; position:relative; }
+.hero:after { content:''; position:absolute; width:340px; height:340px; border-radius:50%; background:rgba(139,92,246,.25); filter:blur(12px); right:-100px; top:-160px; }
+.hero-content { position:relative; z-index:1; max-width:650px; }
+.hero h2 { font-family:'Space Grotesk'; font-size:28px; margin:0 0 10px; }
+.hero p { color:#c8c9d7; line-height:1.6; }
+.hero .btn { margin-top:12px; background:#fff; color:#26213f; }
+.job-list { display:flex; flex-direction:column; gap:12px; }
+.job { border:1px solid var(--border); border-radius:12px; padding:16px; display:flex; gap:14px; align-items:flex-start; }
+.company-logo { width:42px; height:42px; border-radius:12px; background:#eef0ff; display:grid; place-items:center; font-weight:800; color:#5b50d8; flex-shrink:0; }
+.job-main { flex:1; min-width:0; }
+.job-title { font-weight:700; margin-bottom:5px; }
+.job-meta { color:var(--muted); font-size:13px; display:flex; gap:12px; flex-wrap:wrap; }
+.tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.tag { background:var(--surface-2); padding:5px 8px; border-radius:6px; font-size:11px; color:#4b5563; }
+.match { margin-left:auto; text-align:right; }
+.match strong { color:var(--success); font-size:18px; }
+.match small { display:block; color:var(--muted); font-size:11px; }
+.table-wrap { overflow:auto; }
+table { width:100%; border-collapse:collapse; }
+th,td { text-align:left; padding:13px 10px; border-bottom:1px solid var(--border); font-size:13px; white-space:nowrap; }
+th { 
+  color:var(--muted); 
+  font-weight:600; 
+  }
+.badge { 
+  display:inline-flex; 
+  padding:5px 8px; 
+  border-radius:999px; 
+  font-size:11px; 
+  font-weight:600; 
+  }
+.badge.success {
+   background:#e5f7f0; 
+   color:var(--success); 
+  }
+.badge.warning {
+   background:#fff3d9; 
+   color:var(--warning); 
+  }
+.badge.info {
+   background:#eceaff; 
+   color:#5b50d8; 
+  }
+.badge.danger {
+   background:#fdeaea; 
+   color:var(--danger); 
+  }
+.progress { 
+  height:8px; 
+  background:#eceef3; 
+  border-radius:999px; 
+  overflow:hidden; 
+  }
+.progress > span {
+   display:block;
+   height:100%; 
+   background:linear-gradient(90deg,var(--primary),var(--primary-2)); 
+   border-radius:inherit;
+  }
+.bar-chart { height:220px; display:flex; align-items:end; gap:14px; padding:20px 8px 0; }
+.bar { flex:1; display:flex; flex-direction:column; align-items:center; gap:7px; height:100%; justify-content:end; }
+.bar i { display:block; width:100%; max-width:40px; background:linear-gradient(180deg,var(--primary),#b19cff); border-radius:8px 8px 3px 3px; min-height:8px; }
+.bar small { color:var(--muted); font-size:11px; }
+.timeline { display:flex; flex-direction:column; gap:16px; }
+.timeline-item { display:flex; gap:12px; }
+.timeline-dot { width:10px; height:10px; border-radius:50%; background:var(--primary); margin-top:5px; box-shadow:0 0 0 4px #efedff; flex-shrink:0; }
+.timeline-item h4 { margin:0 0 3px; font-size:14px; }
+.timeline-item p { margin:0; color:var(--muted); font-size:12px; }
+.course { display:flex; gap:12px; align-items:center; }
+.course-cover { width:70px; height:56px; border-radius:10px; background:linear-gradient(135deg,#171a2a,#6d5dfc); }
+.course h4 { margin:0 0 4px; font-size:14px; }
+.course p { margin:0; font-size:12px; color:var(--muted); }
+.feed { display:flex; flex-direction:column; gap:18px; }
+.post { border:1px solid var(--border); border-radius:12px; padding:16px; }
+.post-head { display:flex; gap:10px; align-items:center; }
+.post-head strong { font-size:13px; }
+.post-head small { color:var(--muted); display:block; }
+.post p { color:#374151; line-height:1.6; font-size:14px; }
+.post-actions { display:flex; gap:16px; color:var(--muted); font-size:12px; }
+.kpi-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.kpi { background:var(--surface-2); border-radius:12px; padding:14px; }
+.kpi strong { display:block; font-size:22px; margin-bottom:4px; }
+.kpi span { color:var(--muted); font-size:12px; }
+.empty { text-align:center; padding:50px 20px; color:var(--muted); }
+.modal-backdrop { position:fixed; inset:0; background:rgba(17,19,27,.55); display:grid; place-items:center; z-index:50; padding:20px; }
+.modal { width:min(620px,100%); max-height:90vh; overflow:auto; background:#fff; border-radius:18px; padding:24px; }
+.modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.modal h2 { margin:0; font-family:'Space Grotesk'; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.field { display:flex; flex-direction:column; gap:6px; }
+.field.full { grid-column:1/-1; }
+.field label { font-size:12px; font-weight:600; }
+.field input,.field select,.field textarea { border:1px solid var(--border); border-radius:9px; padding:10px; outline:none; }
+.field textarea { min-height:110px; resize:vertical; }
+.modal-footer { display:flex; justify-content:flex-end; gap:10px; margin-top:20px; }
+@media (max-width:1100px) { .app { grid-template-columns:80px 1fr; } .brand-name,.nav button span,.nav-section,.profile-mini div { display:none; } .brand { justify-content:center; padding-bottom:20px; } .nav button { justify-content:center; } .profile-mini { justify-content:center; } .grid-4 { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:760px) { .app { display:block; } .sidebar { position:fixed; bottom:0; left:0; right:0; height:66px; z-index:20; flex-direction:row; padding:8px; } .brand,.sidebar-bottom,.nav-section { display:none; } .nav { flex-direction:row; width:100%; justify-content:space-around; } .nav button { padding:8px; } .nav button.active { background:#242735; } .main { padding-bottom:66px; } .topbar { padding:0 14px; } .search { width:55%; } .content { padding:20px 14px; } .page-head { flex-direction:column; } .grid-4,.grid-3,.grid-2 { grid-template-columns:1fr; } .form-grid { grid-template-columns:1fr; } .field.full { grid-column:auto; } .match { display:none; } }
+
+/* Authentication and role-based workspace additions */
+.auth-layout { min-height:100vh; display:grid; grid-template-columns:1.05fr .95fr; background:var(--bg); }
+.auth-visual { padding:42px clamp(28px,6vw,100px); background:linear-gradient(145deg,#11131b 0%,#201d3e 55%,#4f46a5 150%); color:#fff; display:flex; flex-direction:column; justify-content:space-between; }
+.auth-brand { display:flex; align-items:center; gap:12px; font-size:21px; }
+.auth-hero { max-width:640px; padding:50px 0; }
+.eyebrow { color:#b8b0ff; font-size:11px; letter-spacing:.15em; font-weight:800; }
+.auth-hero h1 { font-family:'Space Grotesk'; font-size:clamp(42px,5vw,72px); line-height:1.02; margin:20px 0; }
+.auth-hero p { color:#c8c9d7; font-size:18px; line-height:1.7; max-width:540px; }
+.auth-stats { display:flex; gap:38px; margin-top:48px; flex-wrap:wrap; }
+.auth-stats strong { display:block; font-size:26px; }
+.auth-stats span { color:#bfc1ce; font-size:12px; }
+.auth-panel { display:grid; place-items:center; padding:30px; }
+.auth-card { width:min(500px,100%); background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:32px; box-shadow:var(--shadow); }
+.auth-tabs { display:grid; grid-template-columns:1fr 1fr; background:var(--surface-2); border-radius:10px; padding:4px; margin-bottom:28px; }
+.auth-tabs button { border:0; background:transparent; padding:11px; border-radius:8px; font-weight:700; color:var(--muted); }
+.auth-tabs button.active { background:var(--surface); color:var(--text); box-shadow:0 2px 8px rgba(0,0,0,.06); }
+.auth-copy h2 { font-family:'Space Grotesk'; margin:0 0 8px; font-size:30px; }
+.auth-copy p { color:var(--muted); margin:0 0 24px; }
+.auth-card form { display:flex; flex-direction:column; gap:14px; }
+.auth-row { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--muted); }
+.auth-row a { color:var(--primary); font-weight:700; cursor:pointer; }
+.check { display:flex; align-items:flex-start; gap:8px; font-size:12px; color:var(--muted); line-height:1.5; }
+.terms { margin-top:2px; }
+.btn-block { width:100%; padding:13px; margin-top:4px; }
+.demo-note { margin-top:18px; padding:12px; border-radius:10px; background:var(--surface-2); color:var(--muted); font-size:11px; line-height:1.5; }
+.role-switcher { margin:0 8px 12px; padding:12px; background:#242735; border-radius:10px; }
+.role-switcher span { display:block; color:#858b9a; font-size:10px; text-transform:uppercase; letter-spacing:.08em; }
+.role-switcher strong { display:block; margin-top:4px; font-size:13px; }
+.logout-btn { width:100%; border:0; background:transparent; color:#b9bdc9; text-align:left; padding:10px; cursor:pointer; }
+.candidate-list { display:flex; flex-direction:column; gap:14px; }
+.candidate { display:flex; gap:10px; align-items:center; }
+.candidate-main { flex:1; min-width:0; }
+.candidate-main strong,.candidate-main span,.candidate-main small { display:block; }
+.candidate-main strong { font-size:13px; }
+.candidate-main span,.candidate-main small { color:var(--muted); font-size:11px; margin-top:3px; }
+.candidate-score { text-align:right; }
+.candidate-score strong { color:var(--success); display:block; }
+.candidate-score small { color:var(--muted); font-size:11px; }
+.pipeline { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; align-items:start; overflow:auto; }
+.pipeline-col { min-width:250px; background:var(--surface-2); border-radius:14px; padding:12px; }
+.pipeline-head { display:flex; justify-content:space-between; align-items:center; padding:5px 4px 12px; font-size:13px; }
+.pipeline-head span { color:var(--muted); }
+.candidate-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:10px; }
+.candidate-card-foot { display:flex; justify-content:space-between; align-items:center; margin-top:12px; }
+.icon-btn.small { width:30px; height:30px; }
+.message-layout { display:grid; grid-template-columns:280px 1fr; min-height:520px; padding:0; overflow:hidden; }
+.conversation-list { border-right:1px solid var(--border); padding:12px; }
+.conversation { display:flex; gap:10px; padding:12px; border-radius:10px; cursor:pointer; }
+.conversation.active,.conversation:hover { background:var(--surface-2); }
+.conversation strong,.conversation small { display:block; }
+.conversation small { color:var(--muted); font-size:11px; margin-top:3px; }
+.chat { display:flex; flex-direction:column; }
+.chat-head { padding:16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; }
+.chat-body { flex:1; padding:20px; display:flex; flex-direction:column; gap:12px; }
+.bubble { max-width:70%; padding:11px 13px; border-radius:14px; font-size:13px; }
+.bubble.incoming { background:var(--surface-2); align-self:flex-start; }
+.bubble.outgoing { background:var(--primary); color:#fff; align-self:flex-end; }
+.chat-compose { display:flex; gap:10px; padding:14px; border-top:1px solid var(--border); }
+.chat-compose input { flex:1; border:1px solid var(--border); border-radius:9px; padding:10px; }
+.big-number { font-family:'Space Grotesk'; font-size:44px; font-weight:700; margin:10px 0; }
+.settings-row { display:flex; justify-content:space-between; gap:15px; padding:13px 0; border-bottom:1px solid var(--border); font-size:13px; }
+.muted { color:var(--muted); }
+.toast { position:fixed; right:22px; bottom:22px; z-index:100; background:#171a24; color:#fff; padding:13px 16px; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,.2); font-size:13px; animation:toastIn .2s ease; }
+.toast.error { background:#a83232; }
+@keyframes toastIn { from { transform:translateY(10px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.dark-mode { --bg:#0e1016; --surface:#171a24; --surface-2:#202431; --text:#f3f4f6; --muted:#a2a8b7; --border:#303545; --shadow:0 16px 40px rgba(0,0,0,.2); }
+.dark-mode .topbar { background:rgba(14,16,22,.9); }
+.dark-mode .btn-outline,.dark-mode .icon-btn,.dark-mode .modal { background:var(--surface); color:var(--text); }
+.dark-mode .field input,.dark-mode .field select,.dark-mode .field textarea,.dark-mode .chat-compose input { background:var(--surface); color:var(--text); }
+@media (max-width:900px) { .auth-layout { grid-template-columns:1fr; } .auth-visual { min-height:420px; } .auth-hero { padding:40px 0 10px; } .message-layout { grid-template-columns:1fr; } .conversation-list { border-right:0; border-bottom:1px solid var(--border); } }
+@media (max-width:760px) { .auth-panel { padding:16px; } .auth-card { padding:22px; } .auth-stats { gap:20px; margin-top:28px; } .auth-hero h1 { font-size:42px; } .pipeline { grid-template-columns:1fr; } .pipeline-col { min-width:0; } }
+
+.modal-wide { max-width: 980px; max-height: 92vh; overflow-y: auto; }
+.assessment-builder { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+.assessment-builder-question { padding: 16px; margin: 12px 0; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-2); }
+.assessment-builder-question h4 { margin: 0 0 12px; }
+.assessment-list { display: grid; gap: 14px; max-height: 62vh; overflow-y: auto; padding-right: 4px; }
+.assessment-question { padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface-2); }
+.assessment-question h3 { margin: 0 0 12px; font-size: 15px; }
+.radio-option { display: flex; gap: 10px; align-items: center; padding: 10px 12px; margin: 7px 0; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; }
+.radio-option:hover { border-color: var(--accent); }
+.notice { padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+.badge.danger { color: #b42318; background: rgba(180,35,24,.10); }
+
+/* Premium live statistics dashboard */
+.stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin:22px 0; }
+.stat-card { position:relative; overflow:hidden; padding:20px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(145deg,var(--surface),var(--surface-2)); box-shadow:var(--shadow); min-height:148px; }
+.stat-card:after { content:''; position:absolute; width:120px; height:120px; border-radius:50%; right:-55px; bottom:-55px; background:rgba(109,93,252,.10); }
+.stat-card.stat-blue:after { background:rgba(59,130,246,.10); }
+.stat-card.stat-green:after { background:rgba(15,159,110,.10); }
+.stat-card.stat-orange:after { background:rgba(194,122,0,.10); }
+.stat-top { display:flex; align-items:center; gap:10px; }
+.stat-icon { width:36px; height:36px; display:grid; place-items:center; border-radius:11px; background:#efedff; color:var(--primary); font-weight:800; }
+.stat-blue .stat-icon { background:rgba(59,130,246,.12); color:#2563eb; }
+.stat-green .stat-icon { background:rgba(15,159,110,.12); color:var(--success); }
+.stat-orange .stat-icon { background:rgba(194,122,0,.12); color:var(--warning); }
+.stat-label { color:var(--muted); font-size:12px; font-weight:700; }
+.stat-value { display:block; font-family:'Space Grotesk'; font-size:34px; line-height:1; margin:20px 0 8px; letter-spacing:-.04em; }
+.stat-card small { color:var(--muted); font-size:11px; line-height:1.4; }
+.dashboard-grid { display:grid; grid-template-columns:1.25fr 1fr; gap:18px; margin:8px 0 28px; }
+.dashboard-panel { background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:20px; box-shadow:var(--shadow); }
+.panel-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:20px; }
+.panel-heading h2 { margin:5px 0 0; font-size:18px; }
+.live-pill { color:var(--success); background:rgba(15,159,110,.10); border:1px solid rgba(15,159,110,.18); padding:6px 9px; border-radius:999px; font-size:10px; font-weight:800; white-space:nowrap; }
+.status-bars { display:flex; flex-direction:column; gap:16px; }
+.status-bar-row > div:first-child, .metric-head { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:12px; }
+.status-bar-row strong, .metric-head strong { font-size:13px; }
+.status-bar-track, .metric-track, .funnel-track { height:9px; margin-top:8px; background:var(--surface-2); border-radius:999px; overflow:hidden; }
+.status-bar-track span, .metric-track span, .funnel-track span { display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,var(--primary),var(--primary-2)); }
+.metric-row { margin:18px 0; }
+.metric-row small { display:block; color:var(--muted); font-size:11px; margin-top:7px; }
+.funnel { display:flex; flex-direction:column; gap:14px; }
+.funnel-step > div:first-child { display:flex; justify-content:space-between; align-items:center; font-size:12px; }
+.funnel-step strong { font-family:'Space Grotesk'; font-size:20px; }
+.funnel-step.blue .funnel-track span { background:#3b82f6; }
+.funnel-step.orange .funnel-track span { background:#d28b13; }
+.funnel-step.green .funnel-track span { background:#0f9f6e; }
+.funnel-step.dark .funnel-track span { background:#334155; }
+@media (max-width:1100px) { .stats-grid { grid-template-columns:repeat(2,1fr); } .dashboard-grid { grid-template-columns:1fr; } }
+@media (max-width:600px) { .stats-grid { grid-template-columns:1fr; } .stat-value { font-size:30px; } }
+
+/* Executive-grade statistics board refresh */
+.stats-grid { gap:18px; margin:24px 0 22px; }
+.stat-card { min-height:166px; padding:22px; border-radius:22px; background:linear-gradient(145deg, var(--surface) 0%, var(--surface-2) 100%); box-shadow:0 14px 34px rgba(15,23,42,.08); transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.stat-card:hover { transform:translateY(-4px); box-shadow:0 20px 42px rgba(15,23,42,.13); border-color:rgba(109,93,252,.35); }
+.stat-card:before { content:''; position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg,var(--primary),var(--primary-2)); }
+.stat-card.stat-blue:before { background:linear-gradient(90deg,#2563eb,#60a5fa); }
+.stat-card.stat-green:before { background:linear-gradient(90deg,#0f9f6e,#4ade80); }
+.stat-card.stat-orange:before { background:linear-gradient(90deg,#d28b13,#f59e0b); }
+.stat-card:after { width:180px; height:180px; right:-85px; bottom:-95px; opacity:.9; }
+.stat-top { position:relative; z-index:1; justify-content:space-between; }
+.stat-top:after { content:'LIVE'; font-size:9px; font-weight:800; letter-spacing:.08em; color:var(--success); background:rgba(15,159,110,.09); border:1px solid rgba(15,159,110,.16); padding:5px 7px; border-radius:999px; }
+.stat-icon { width:42px; height:42px; border-radius:14px; font-size:18px; box-shadow:inset 0 0 0 1px rgba(109,93,252,.08); }
+.stat-label { font-size:11px; text-transform:uppercase; letter-spacing:.08em; }
+.stat-value { position:relative; z-index:1; font-size:42px; margin:24px 0 8px; }
+.stat-card small { position:relative; z-index:1; max-width:85%; display:block; }
+.dashboard-grid { gap:20px; }
+.dashboard-panel { border-radius:22px; padding:22px; box-shadow:0 12px 30px rgba(15,23,42,.06); }
+.panel-heading { margin-bottom:22px; }
+.panel-heading h2 { font-size:20px; letter-spacing:-.02em; }
+.status-bars, .funnel { gap:18px; }
+.status-bar-row, .funnel-step { padding:12px 0; }
+.status-bar-track, .metric-track, .funnel-track { height:11px; background:rgba(148,163,184,.14); }
+.status-bar-track span, .metric-track span, .funnel-track span { box-shadow:0 0 12px rgba(109,93,252,.22); }
+.metric-row { padding:14px; border:1px solid var(--border); border-radius:15px; background:linear-gradient(145deg,var(--surface),var(--surface-2)); }
+.metric-row + .metric-row { margin-top:12px; }
+.funnel-step { padding:14px; border:1px solid var(--border); border-radius:15px; background:linear-gradient(145deg,var(--surface),var(--surface-2)); }
+.funnel-step strong { font-size:24px; }
+.live-pill { box-shadow:0 4px 12px rgba(15,159,110,.08); }
+.hero-card { box-shadow:0 18px 40px rgba(15,23,42,.10); }
+@media (max-width:600px) { .stat-value { font-size:36px; } .stat-card { min-height:150px; } }
+
+  .backend-live{display:block;color:var(--success);font-size:11px;font-weight:600;margin-top:4px;}
+</style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>const API_BASE = window.location.protocol === 'file:' ? 'http://127.0.0.1:5000/api' : `${window.location.origin}/api`;
+const TOKEN_KEY = 'jobconnect-api-token-v1';
+const state = {page:'dashboard',authMode:'login',user:null,role:'jobseeker',dark:false,jobs:[],applications:[],notifications:[],stats:{jobs:0,organizations:0,jobseekers:0}};
+const icons = {dashboard:'⌂',jobs:'⌕',applications:'▣',assessments:'◈',learning:'▤',network:'◎',messages:'✉',analytics:'◒',candidates:'♙',postings:'▤',settings:'⚙'};
+async function api(path,options={}){const headers=new Headers(options.headers||{});if(options.body&&!(options.body instanceof FormData))headers.set('Content-Type','application/json');const token=localStorage.getItem(TOKEN_KEY);if(token)headers.set('Authorization',`Bearer ${token}`);const r=await fetch(`${API_BASE}${path}`,{...options,headers});const raw=await r.text();let d={};try{d=raw?JSON.parse(raw):{};}catch{d={message:raw||'Unexpected server response'};}if(!r.ok){const e=new Error(d.message||d.error||'Request failed');e.status=r.status;throw e;}return d;}
+function showApiError(error,fallback='Something went wrong.'){if(error?.status===401){localStorage.removeItem(TOKEN_KEY);state.user=null;render();return showToast('Your session has expired. Please log in again.','error');}showToast(error?.message||fallback,'error');}
+function initials(a='',b=''){return `${a[0]||''}${b[0]||''}`.toUpperCase();}
+function escapeHTML(value=''){return String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function showToast(message,type='success'){const t=document.createElement('div');t.className=`toast ${type}`;t.textContent=message;document.body.appendChild(t);setTimeout(()=>t.remove(),3500);}
+async function loadData(){const ps=await api('/stats/public');state.stats=ps;const jd=await api('/jobs');state.jobs=jd.jobs||[];if(!state.user){state.applications=[];return;}const ad=state.role==='organization'?await api('/applications/employer'):await api('/applications/mine');state.applications=ad.applications||[];}
+function escapeHTML(value='') { return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+function initials(a='', b='') { return `${a[0]||''}${b[0]||''}`.toUpperCase(); }
+function showToast(message,type='success'){ const t=document.createElement('div'); t.className=`toast ${type}`; t.textContent=message; document.body.appendChild(t); setTimeout(()=>t.remove(),3500); }
+
+async function init(){try{const token=localStorage.getItem(TOKEN_KEY);if(token){try{const me=await api('/me');state.user=me.user;state.role=me.user.role;}catch(_){localStorage.removeItem(TOKEN_KEY);state.user=null;}}await loadData();}catch(error){console.error(error);showToast('Could not connect to the JobConnect server. Start the Flask backend and refresh.','error');}render();if(state.user&&!state.user.profileComplete)setTimeout(openProfileModal,100);}
+
+function render() { document.body.classList.toggle('dark-mode',state.dark); document.getElementById('app').innerHTML=state.user?appShell():authShell(); }
+
+function authShell() { return `<div class="auth-layout"><section class="auth-visual"><div class="auth-brand"><div class="brand-mark">J</div><strong>JobConnect</strong></div><div class="auth-hero"><span class="eyebrow">THE CAREER OPERATING SYSTEM</span><h1>Connect talent with opportunity.</h1><p>Organizations create real opportunities. Job seekers discover, apply, and grow.</p><div class="auth-stats"><div><strong>${state.jobs.length}</strong><span>Real published jobs</span></div><div><strong>${state.stats.organizations}</strong><span>Organizations</span></div><div><strong>${state.stats.jobseekers}</strong><span>Job seekers</span></div></div></div></section><section class="auth-panel"><div class="auth-card"><div class="auth-tabs"><button class="${state.authMode==='login'?'active':''}" onclick="setAuthMode('login')">Log in</button><button class="${state.authMode==='register'?'active':''}" onclick="setAuthMode('register')">Create account</button></div>${state.authMode==='login'?loginForm():registerForm()}</div></section></div>`; }
+
+function loginForm() { return `<div class="auth-copy"><h2>Welcome back</h2><p>Sign in to continue to your JobConnect workspace.</p></div><form onsubmit="login(event)"><div class="field"><label>Email address</label><input id="loginEmail" type="email" required placeholder="you@example.com" /></div><div class="field"><label>Password</label><input id="loginPassword" type="password" required minlength="6" placeholder="Enter your password" /></div><div class="auth-row"><label class="check"><input type="checkbox" /> Remember me</label><a href="#" onclick="event.preventDefault();openForgotPassword()">Forgot password?</a></div><button class="btn btn-primary btn-block" type="submit">Log in to JobConnect</button></form><div class="demo-note">Create an account first. One email address can belong to only one account role.</div>`; }
+
+function registerForm() { return `<div class="auth-copy"><h2>Create your account</h2><p>Choose one account role and complete your contact information.</p></div><form onsubmit="register(event)"><div class="field"><label>I am joining as</label><select id="registerRole" required><option value="jobseeker">Job Seeker</option><option value="organization">Organization / Employer</option></select></div><div class="form-grid"><div class="field"><label>First name</label><input id="firstName" required /></div><div class="field"><label>Last name</label><input id="lastName" required /></div></div><div class="field"><label>Email address</label><input id="registerEmail" type="email" required /></div><div class="field"><label>Phone number</label><input id="phone" type="tel" required placeholder="+250 7XX XXX XXX" /></div><div class="field"><label>Password</label><input id="registerPassword" type="password" required minlength="6" /></div><div class="field"><label>Confirm password</label><input id="confirmPassword" type="password" required minlength="6" /></div><label class="check terms"><input id="terms" type="checkbox" required /> I agree to the Terms of Service and Privacy Policy.</label><button class="btn btn-primary btn-block" type="submit">Create my account</button></form>`; }
+function setAuthMode(mode) { state.authMode=mode; render(); }
+
+async function register(event){event.preventDefault();const email=document.getElementById('registerEmail').value.trim().toLowerCase();const password=document.getElementById('registerPassword').value;if(password!==document.getElementById('confirmPassword').value)return showToast('Passwords do not match','error');try{await api('/auth/register',{method:'POST',body:JSON.stringify({first_name:document.getElementById('firstName').value.trim(),last_name:document.getElementById('lastName').value.trim(),email,phone:document.getElementById('phone').value.trim(),password,role:document.getElementById('registerRole').value})});state.authMode='login';render();showToast('Account created. Please log in.');}catch(error){showApiError(error,'Could not create the account.');}}
+
+async function login(event){event.preventDefault();const email=document.getElementById('loginEmail').value.trim().toLowerCase(),password=document.getElementById('loginPassword').value;try{const data=await api('/auth/login',{method:'POST',body:JSON.stringify({email,password})});localStorage.setItem(TOKEN_KEY,data.token);state.user=data.user;state.role=data.user.role;state.page='dashboard';await loadData();render();if(!state.user.profileComplete)setTimeout(openProfileModal,100);}catch(error){showApiError(error,'Invalid credentials. Check your email and password.');}}
+async function logout(){try{await api('/auth/logout',{method:'POST'});}catch(_){}localStorage.removeItem(TOKEN_KEY);state.user=null;state.role='jobseeker';state.page='dashboard';state.applications=[];render();showToast('You have been logged out.');}
+function navItem(key,label) { return `<button class="${state.page===key?'active':''}" onclick="navigate('${key}')"><span class="nav-icon">${icons[key]||'•'}</span><span>${label}</span></button>`; }
+function navigate(page) { state.page=page; render(); }
+
+function appShell(){const org=state.role==='organization',userName=escapeHTML(`${state.user.firstName} ${state.user.lastName}`);return `<div class="app"><aside class="sidebar"><div class="brand"><div class="brand-mark">J</div><div class="brand-name">JobConnect</div></div><div class="role-switcher"><span>Workspace</span><strong>${org?'Organization':'Job Seeker'}</strong></div><div class="nav-section">Workspace</div><nav class="nav">${navItem('dashboard','Dashboard')}${org?navItem('postings','Job Postings')+navItem('candidates','Candidates'):navItem('jobs','Find Jobs')+navItem('applications','Applications')+navItem('assessments','Assessments')+navItem('learning','Learning')}${navItem('network','Network')}${navItem('messages','Messages')}${navItem('settings','Settings')}</nav><div class="sidebar-bottom"><button class="theme-toggle" onclick="toggleTheme()">${state.dark?'☀':'☾'} <span>${state.dark?'Light':'Dark'} mode</span></button><button class="profile-mini" onclick="navigate('settings')"><div class="avatar">${initials(state.user.firstName,state.user.lastName)}</div><div><strong>${userName}</strong><span>${org?'Organization':'Job Seeker'}</span></div></button><button class="btn btn-outline btn-block" onclick="logout()">Log out</button></div></aside><main class="main"><header class="topbar"><div><span class="eyebrow">${org?'ORGANIZATION WORKSPACE':'CAREER WORKSPACE'}</span><h1>${pageTitle()}</h1><small class="backend-live">● Connected to JobConnect server</small></div><div class="top-actions"><button class="icon-btn" onclick="showNotifications()">🔔</button><button class="avatar" onclick="navigate('settings')">${initials(state.user.firstName,state.user.lastName)}</button></div></header><section class="content">${pageContent()}</section></main></div>`;}
+function pageTitle(){ const map={dashboard:'Good morning',jobs:'Find your next opportunity',applications:'Your applications',assessments:'Assessments',learning:'Learning center',network:'Professional network',messages:'Messages',analytics:'Analytics',postings:'Job postings',candidates:'Candidate pipeline',settings:'Settings'}; return map[state.page]||'JobConnect'; }
+function pageContent(){ const map={dashboard:state.role==='organization'?orgDashboard():jobseekerDashboard(),jobs:jobsPage(),applications:applicationsPage(),assessments:assessmentsPage(),learning:placeholderPage('Learning center','Build skills, complete courses, and earn certificates.'),network:placeholderPage('Professional network','Connect with professionals and organizations.'),messages:placeholderPage('Messages','Your recruiter and professional conversations will appear here.'),postings:postingsPage(),candidates:candidatesPage(),settings:settingsPage()}; return map[state.page]||map.dashboard; }
+
+function statCard(icon,label,value,detail,accent='purple'){ return `<div class="stat-card stat-${accent}"><div class="stat-top"><span class="stat-icon">${icon}</span><span class="stat-label">${label}</span></div><strong class="stat-value">${value}</strong><small>${detail}</small></div>`; }
+function progressBar(label,value,meta=''){ const pct=Math.max(0,Math.min(100,Number(value)||0)); return `<div class="metric-row"><div class="metric-head"><span>${label}</span><strong>${pct}%</strong></div><div class="metric-track"><span style="width:${pct}%"></span></div>${meta?`<small>${meta}</small>`:''}</div>`; }
+function jobseekerDashboard(){ const mine=state.applications.filter(a=>a.applicantEmail===state.user.email); const completed=mine.filter(a=>a.psychometricScore!==null).length; const interviews=mine.filter(a=>a.status==='Interview').length; const passed=mine.filter(a=>a.psychometricScore!==null && a.psychometricScore>=a.passMark).length; const profile=profileCompletion(state.user); const passRate=completed?Math.round(passed/completed*100):0; const statuses=[['Submitted',mine.filter(a=>a.status==='Psychometric test required').length],['Testing',mine.filter(a=>a.status==='Awaiting organization review').length],['Interview',interviews],['Not selected',mine.filter(a=>a.status==='Not selected').length]]; return `<div class="hero-card"><div><span class="eyebrow">YOUR CAREER MOMENTUM</span><h2>Build your next chapter.</h2><p>Discover jobs created by real organizations and complete your application journey.</p><button class="btn btn-primary" onclick="navigate('jobs')">Explore real jobs</button></div><div class="hero-orb">${profile}%<small>profile complete</small></div></div><div class="stats-grid">${statCard('↗','Applications',mine.length,'Real applications you submitted','purple')}${statCard('◈','Tests completed',completed,'20-question assessments completed','blue')}${statCard('✓','Interviews',interviews,'Organizations invited you','green')}${statCard('◌','Test pass rate',passRate+'%',completed?`${passed} of ${completed} completed tests passed`:'No completed tests yet','orange')}</div><div class="dashboard-grid"><div class="dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">REAL ACTIVITY</span><h2>Application pipeline</h2></div><span class="live-pill">● Live data</span></div><div class="status-bars">${statuses.map(([label,count])=>{const max=Math.max(1,...statuses.map(x=>x[1]));return `<div class="status-bar-row"><div><span>${label}</span><strong>${count}</strong></div><div class="status-bar-track"><span style="width:${Math.round(count/max*100)}%"></span></div></div>`}).join('')}</div></div><div class="dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">PROFILE HEALTH</span><h2>Ready to apply?</h2></div></div>${progressBar('Profile completion',profile,profile===100?'Your profile is ready for applications.':'Complete your profile to unlock more applications.')} ${progressBar('Assessment pass rate',passRate,completed?'Based on your completed psychometric tests.':'Complete a test to generate this metric.')}</div></div><div class="section-title"><h2>Recommended jobs</h2><button class="btn btn-outline" onclick="navigate('jobs')">View all</button></div>${jobCards(state.jobs.slice(0,3))}`; }
+
+function orgDashboard(){ const mine=state.jobs.filter(j=>j.organizationId===state.user.id); const apps=state.applications.filter(a=>mine.some(j=>j.id===a.jobId)); const interviews=apps.filter(a=>a.status==='Interview').length; const hires=apps.filter(a=>a.status==='Hired').length; const completed=apps.filter(a=>a.psychometricScore!==null).length; const passed=apps.filter(a=>a.psychometricScore!==null && a.psychometricScore>=a.passMark).length; const profile=profileCompletion(state.user); const views=mine.reduce((n,j)=>n+(j.views||0),0); const conversion=views?Math.round(apps.length/views*100):0; return `<div class="hero-card"><div><span class="eyebrow">ORGANIZATION RECRUITMENT</span><h2>Turn real opportunities into great hires.</h2><p>Create and publish jobs, require 20-question psychometric tests, and review candidates from real application events.</p><button class="btn btn-primary" onclick="openCreateJob()">Post a real job</button></div><div class="hero-orb">${profile}%<small>profile complete</small></div></div><div class="stats-grid">${statCard('▤','Published jobs',mine.length,'Jobs created by your organization','purple')}${statCard('♙','Applications',apps.length,'Real applications received','blue')}${statCard('✓','Interviews',interviews,'Candidates you invited','green')}${statCard('◉','Job views',views,conversion+'% view-to-application rate','orange')}</div><div class="dashboard-grid"><div class="dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">RECRUITMENT FUNNEL</span><h2>Candidate journey</h2></div><span class="live-pill">● Live data</span></div><div class="funnel">${[['Applications',apps.length,'purple'],['Tests completed',completed,'blue'],['Passed assessment',passed,'orange'],['Interview',interviews,'green'],['Hired',hires,'dark']].map(([label,count,accent])=>`<div class="funnel-step ${accent}"><div><span>${label}</span><strong>${count}</strong></div><div class="funnel-track"><span style="width:${apps.length?Math.round(count/apps.length*100):0}%"></span></div></div>`).join('')}</div></div><div class="dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">OPERATING HEALTH</span><h2>Hiring snapshot</h2></div></div>${progressBar('Assessment completion',apps.length?Math.round(completed/apps.length*100):0,apps.length?'Applicants who completed the required test.':'No applications yet.')} ${progressBar('Assessment pass rate',completed?Math.round(passed/completed*100):0,completed?'Based on real candidate scores.':'No completed assessments yet.')} ${progressBar('View-to-application rate',conversion,views?'Based on recorded job views and applications.':'No job views yet.')}</div></div><div class="section-title"><h2>Your published jobs</h2><button class="btn btn-outline" onclick="navigate('postings')">Manage jobs</button></div>${mine.length?jobCards(mine):emptyState('No jobs published yet','Your organization has not uploaded any jobs. Create your first job to make it visible to job seekers.','Post a job','openCreateJob')}`; }
+
+function profileCompletion(u){ const p=u.profile||{}; const checks=u.role==='jobseeker'?[u.firstName,u.lastName,u.email,u.phone,p.title,p.location,p.summary,p.skills,p.education,p.workExperience,p.cvName,p.identityNumber]:[u.firstName,u.lastName,u.email,u.phone,p.organizationName,p.industry,p.description]; return Math.round(checks.filter(Boolean).length/checks.length*100); }
+function jobCards(jobs){ return jobs.map(job=>`<div class="job-card"><div class="company-logo">${escapeHTML(job.logo||initials(job.company||'', ''))}</div><div class="job-main"><div class="job-head"><div><h3>${escapeHTML(job.title)}</h3><p>${escapeHTML(job.company)} ${job.organizationVerified?'✓ Verified':''}</p></div><span class="badge success">${job.mode||'Flexible'}</span></div><div class="job-meta"><span>⌖ ${escapeHTML(job.location||'Location not specified')}</span><span>◷ ${escapeHTML(job.type||'Full-time')}</span><span>💰 ${escapeHTML(job.salary||'Not specified')}</span></div><div class="tag-row">${(job.tags||[]).map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('')}<span class="tag">20-question test</span></div><div class="job-footer"><span class="muted">${job.views||0} views · ${job.applicants||0} applications</span><div>${state.role==='jobseeker'?`<button class="btn btn-primary btn-sm" onclick="applyJob('${job.id}')">Apply Now</button>`:`<button class="btn btn-outline btn-sm" onclick="navigate('postings')">Manage</button>`}</div></div></div></div>`).join(''); }
+function emptyState(title,text,button,fn){ return `<div class="empty-state"><h3>${escapeHTML(title)}</h3><p>${escapeHTML(text)}</p><button class="btn btn-primary" onclick="${fn}()">${escapeHTML(button)}</button></div>`; }
+
+function jobsPage(){ const jobs=state.jobs; return `<div class="search-bar"><input id="jobSearch" placeholder="Search jobs, skills, organizations..." oninput="filterJobs()" /><select id="jobModeFilter" onchange="filterJobs()"><option value="">All work modes</option><option>Remote</option><option>Hybrid</option><option>On-site</option></select><select id="jobTypeFilter" onchange="filterJobs()"><option value="">All employment types</option><option>Full-time</option><option>Part-time</option><option>Contract</option></select></div><div id="jobsResults">${jobs.length?jobCards(jobs):emptyState('No real jobs available yet','Organizations have not published any jobs yet. Check back when verified organizations create opportunities.','Refresh','navigateJobs')}</div>`; }
+function navigateJobs(){navigate('jobs');}
+function filterJobs(){ const q=(document.getElementById('jobSearch')?.value||'').toLowerCase(); const mode=document.getElementById('jobModeFilter')?.value||''; const type=document.getElementById('jobTypeFilter')?.value||''; const filtered=state.jobs.filter(j=>(!q||[j.title,j.company,...(j.tags||[]),j.location].join(' ').toLowerCase().includes(q))&&(!mode||j.mode===mode)&&(!type||j.type===type)); document.getElementById('jobsResults').innerHTML=filtered.length?jobCards(filtered):emptyState('No matching jobs','Try another search or filter.','Clear filters','clearJobFilters'); }
+function clearJobFilters(){document.getElementById('jobSearch').value='';document.getElementById('jobModeFilter').value='';document.getElementById('jobTypeFilter').value='';filterJobs();}
+
+function applicationsPage(){ const mine=state.applications.filter(a=>a.applicantEmail===state.user.email); return mine.length?`<div class="table-card"><div class="table-wrap"><table><thead><tr><th>Job</th><th>Organization</th><th>Assessment</th><th>Status</th><th>Action</th></tr></thead><tbody>${mine.map(a=>`<tr><td><strong>${escapeHTML(a.title)}</strong></td><td>${escapeHTML(a.company)}</td><td>${a.psychometricScore===null?'Not completed':`${a.psychometricScore}% / pass ${a.passMark}%`}</td><td><span class="badge ${a.status==='Interview'?'success':a.status==='Not selected'?'danger':'warning'}">${escapeHTML(a.status)}</span></td><td>${a.psychometricScore===null?`<button class="btn btn-primary btn-sm" onclick="startPsychometricTest('${a.id}')">Take test</button>`:'—'}</td></tr>`).join('')}</tbody></table></div></div>`:emptyState('No applications yet','Apply to a real organization-created job to see your application journey here.','Find jobs','navigateJobs'); }
+function assessmentsPage(){ const mine=state.applications.filter(a=>a.applicantEmail===state.user.email); return `<div class="section-title"><h2>Your psychometric assessments</h2></div>${mine.length?mine.map(a=>`<div class="list-card"><div><strong>${escapeHTML(a.title)}</strong><p class="muted">${escapeHTML(a.company)} · 20 questions · pass mark ${a.passMark}%</p></div><div>${a.psychometricScore===null?`<button class="btn btn-primary btn-sm" onclick="startPsychometricTest('${a.id}')">Start assessment</button>`:`<span class="badge success">Score: ${a.psychometricScore}%</span>`}</div></div>`).join(''):emptyState('No assessments yet','Assessments appear after you apply to jobs that require them.','Find jobs','navigateJobs')}`; }
+function postingsPage(){ const mine=state.jobs.filter(j=>j.organizationId===state.user.id); return `<div class="section-title"><div><h2>Jobs uploaded by your organization</h2><p class="muted">Only jobs created and published from this dashboard appear to job seekers.</p></div><button class="btn btn-primary" onclick="openCreateJob()">+ Post a job</button></div>${mine.length?jobCards(mine):emptyState('No jobs published','This organization has not uploaded a job yet.','Post your first job','openCreateJob')}`; }
+function candidatesPage(){ const mineJobs=state.jobs.filter(j=>j.organizationId===state.user.id); const apps=state.applications.filter(a=>mineJobs.some(j=>j.id===a.jobId)); return apps.length?`<div class="table-card"><div class="table-wrap"><table><thead><tr><th>Candidate</th><th>Job</th><th>Test score</th><th>Status</th><th>Decision</th></tr></thead><tbody>${apps.map(a=>`<tr><td><strong>${escapeHTML(a.applicantName)}</strong><br><small>${escapeHTML(a.applicantEmail)}</small></td><td>${escapeHTML(a.title)}</td><td>${a.psychometricScore===null?'Pending':`${a.psychometricScore}% / ${a.passMark}%`}</td><td><span class="badge warning">${escapeHTML(a.status)}</span></td><td>${a.psychometricScore===null?'Waiting for test':a.organizationReviewed?`<span class="badge ${a.status==='Interview'?'success':'danger'}">${escapeHTML(a.status)}</span>`:`<button class="btn btn-primary btn-sm" onclick="reviewCandidate('${a.id}')">Review result</button>`}</td></tr>`).join('')}</tbody></table></div></div>`:emptyState('No candidates yet','Candidates appear only after job seekers apply to your published jobs and complete the required assessment.','Manage jobs','navigatePostings'); }
+function navigatePostings(){navigate('postings');}
+function placeholderPage(title,text){return `<div class="empty-state"><h2>${escapeHTML(title)}</h2><p>${escapeHTML(text)}</p></div>`;}
+
+function settingsPage(){ const p=state.user.profile||{}; const org=state.role==='organization'; return `<div class="settings-grid"><div class="panel"><div class="section-title"><h2>${org?'Organization':'Professional'} profile</h2><span class="badge ${state.user.profileComplete?'success':'warning'}">${profileCompletion(state.user)}% complete</span></div><form onsubmit="saveProfile(event)">${org?`<div class="field"><label>Organization name</label><input id="profileOrganizationName" value="${escapeHTML(p.organizationName||'')}" required /></div><div class="field"><label>Industry</label><input id="profileIndustry" value="${escapeHTML(p.industry||'')}" required /></div><div class="field"><label>Organization description</label><textarea id="profileDescription" required>${escapeHTML(p.description||'')}</textarea></div>`:`<div class="form-grid"><div class="field"><label>Professional title</label><input id="profileTitle" value="${escapeHTML(p.title||'')}" required /></div><div class="field"><label>Location</label><input id="profileLocation" value="${escapeHTML(p.location||'')}" required /></div></div><div class="field"><label>Professional summary</label><textarea id="profileSummary" required>${escapeHTML(p.summary||'')}</textarea></div><div class="field"><label>Skills</label><input id="profileSkills" value="${escapeHTML(p.skills||'')}" placeholder="React, SQL, Communication" required /></div><div class="field"><label>Education</label><input id="profileEducation" value="${escapeHTML(p.education||'')}" required /></div><div class="field"><label>Work experience</label><textarea id="profileWorkExperience" placeholder="Describe your previous jobs, or write None if you have never had a job.">${escapeHTML(p.workExperience||'')}</textarea><small class="muted">No previous job? Write <strong>None</strong> or select the option below.</small><label class="check"><input id="noExperience" type="checkbox" ${p.workExperience==='None'?'checked':''} onchange="toggleNoExperience()" /> I have no previous work experience</label></div><div class="field"><label>CV / Resume upload</label><input id="profileCV" type="file" accept=".pdf,.doc,.docx" onchange="setFileName('profileCV','cvFileName')" /><small id="cvFileName" class="muted">${escapeHTML(p.cvName||'No CV uploaded')}</small></div><div class="field"><label>National identity card number / approved ID information</label><input id="profileIdentity" type="text" value="${escapeHTML(p.identityNumber||'')}" placeholder="Sensitive information" /><small class="muted">Stored as sensitive data and masked in the interface: ${p.identityNumber?'•••• '+escapeHTML(String(p.identityNumber).slice(-4)):'Not provided'}</small></div>`}<button class="btn btn-primary" type="submit">Save profile</button></form></div><div class="panel"><h2>Security</h2><p class="muted">Manage your password and account access.</p><button class="btn btn-outline btn-block" onclick="openChangePassword()">Change password</button><button class="btn btn-outline btn-block" onclick="openForgotPassword()">Recover / reset password</button><hr><h3>Account</h3><p><strong>Email:</strong> ${escapeHTML(state.user.email)}</p><p><strong>Phone:</strong> ${escapeHTML(state.user.phone)}</p><p><strong>Role:</strong> ${org?'Organization':'Job Seeker'}</p></div></div>`; }
+function toggleNoExperience(){const c=document.getElementById('noExperience');const f=document.getElementById('profileWorkExperience');if(c.checked){f.value='None';f.disabled=true;}else{f.disabled=false;f.value='';}}
+function setFileName(inputId,targetId){const file=document.getElementById(inputId).files[0];if(file)document.getElementById(targetId).textContent=file.name;}
+async function saveProfile(event){event.preventDefault();const p={...(state.user.profile||{})};if(state.role==='organization'){p.organizationName=document.getElementById('profileOrganizationName').value.trim();p.industry=document.getElementById('profileIndustry').value.trim();p.description=document.getElementById('profileDescription').value.trim();}else{p.title=document.getElementById('profileTitle').value.trim();p.location=document.getElementById('profileLocation').value.trim();p.summary=document.getElementById('profileSummary').value.trim();p.skills=document.getElementById('profileSkills').value.trim();p.education=document.getElementById('profileEducation').value.trim();p.workExperience=document.getElementById('profileWorkExperience').value.trim()||'None';p.identityNumber=document.getElementById('profileIdentity').value.trim();const file=document.getElementById('profileCV').files[0];if(file)p.cvName=file.name;}try{const data=await api('/me/profile',{method:'PATCH',body:JSON.stringify({profile:p})});state.user=data.user;state.role=data.user.role;showToast('Profile saved.');render();}catch(error){showApiError(error,'Could not save your profile.');}}
+
+function openProfileModal(){navigate('settings');}
+function openChangePassword(){document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><div class="modal"><div class="modal-head"><div><h2>Change password</h2><p class="muted">Update your password whenever you want.</p></div><button class="icon-btn" onclick="closeModal()">×</button></div><form onsubmit="changePassword(event)"><div class="field"><label>Current password</label><input id="currentPassword" type="password" required /></div><div class="field"><label>New password</label><input id="newPassword" type="password" minlength="6" required oninput="passwordStrength(this.value,'strength')" /><small id="strength" class="muted"></small></div><div class="field"><label>Confirm new password</label><input id="confirmNewPassword" type="password" required /></div><div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Save password</button></div></form></div></div>`);}
+function passwordStrength(v,id){const s=v.length<6?'Too short':v.length<10?'Moderate':'Strong';document.getElementById(id).textContent=`Password strength: ${s}`;}
+async function changePassword(event){event.preventDefault();const current=document.getElementById('currentPassword').value,n=document.getElementById('newPassword').value;if(n!==document.getElementById('confirmNewPassword').value)return showToast('New passwords do not match.','error');try{await api('/auth/change-password',{method:'POST',body:JSON.stringify({current_password:current,new_password:n})});closeModal();showToast('Password changed successfully.');}catch(error){showApiError(error,'Could not change your password.');}}
+function openForgotPassword(){document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><div class="modal"><div class="modal-head"><div><h2>Recover password</h2><p class="muted">Enter your email to begin the secure recovery process.</p></div><button class="icon-btn" onclick="closeModal()">×</button></div><form onsubmit="requestReset(event)"><div class="field"><label>Email address</label><input id="resetEmail" type="email" required /></div><div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Continue</button></div></form></div></div>`);}
+async function requestReset(event){event.preventDefault();const email=document.getElementById('resetEmail').value.trim().toLowerCase();try{const data=await api('/auth/request-reset',{method:'POST',body:JSON.stringify({email})});closeModal();showToast('Recovery request created.');if(data.reset_token)setTimeout(()=>openResetPassword(email,data.reset_token),250);}catch(error){showApiError(error,'Could not start password recovery.');}}
+function openResetPassword(email,token){document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><div class="modal"><div class="modal-head"><div><h2>Create a new password</h2><p class="muted">For this local prototype, the reset token is generated by the backend.</p></div><button class="icon-btn" onclick="closeModal()">×</button></div><form onsubmit="resetPassword(event,'${escapeHTML(email)}','${escapeHTML(token)}')"><div class="field"><label>New password</label><input id="resetPassword" type="password" minlength="6" required /></div><div class="field"><label>Confirm password</label><input id="resetConfirm" type="password" minlength="6" required /></div><div class="modal-footer"><button class="btn btn-primary">Reset password</button></div></form></div></div>`);}
+async function resetPassword(event,email,token){event.preventDefault();const a=document.getElementById('resetPassword').value;if(a!==document.getElementById('resetConfirm').value)return showToast('Passwords do not match.','error');try{await api('/auth/reset-password',{method:'POST',body:JSON.stringify({email,token,new_password:a})});closeModal();showToast('Password reset successfully. You can now log in.');}catch(error){showApiError(error,'Could not reset the password.');}}
+
+function openCreateJob(){if(state.role!=='organization')return showToast('Only organizations can post jobs.','error');if(!state.user.organizationVerified)return showToast('Complete your organization profile first. Verification is required before publishing a job.','error');const qs=defaultPsychometricQuestions();document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><div class="modal modal-wide"><div class="modal-head"><div><h2>Post a real job</h2><p class="muted">This job will be visible to job seekers only after your organization publishes it.</p></div><button class="icon-btn" onclick="closeModal()">×</button></div><form onsubmit="createJob(event)"><div class="form-grid"><div class="field"><label>Job title</label><input id="jobTitle" required /></div><div class="field"><label>Location</label><input id="jobLocation" required /></div></div><div class="form-grid"><div class="field"><label>Work mode</label><select id="jobMode"><option>Remote</option><option>Hybrid</option><option>On-site</option></select></div><div class="field"><label>Employment type</label><select id="jobType"><option>Full-time</option><option>Part-time</option><option>Contract</option></select></div></div><div class="field"><label>Salary</label><input id="jobSalary" placeholder="Optional" /></div><div class="field"><label>Required skills</label><input id="jobSkills" placeholder="React, SQL, Communication" required /></div><div class="field"><label>Description and requirements</label><textarea id="jobDescription" required></textarea></div><div class="form-grid"><div class="field"><label>Application deadline</label><input id="jobDeadline" type="date" required /></div><div class="field"><label>Minimum psychometric score (%)</label><input id="passMark" type="number" min="1" max="100" value="60" required /></div></div><div class="assessment-builder"><div class="section-title"><h3>20-question psychometric test</h3><span class="badge warning">Required</span></div><p class="muted">The job seeker must complete all 20 multiple-choice questions before your organization can review the application.</p>${psychometricQuestionForm(qs)}</div><div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Publish job and assessment</button></div></form></div></div>`);}
+function psychometricQuestionForm(qs){return qs.map((q,i)=>`<div class="assessment-question"><h3>${i+1}. Question</h3><input class="question-text" data-q="${i}" value="${escapeHTML(q[0])}" required /><div class="form-grid">${q[1].map((o,j)=>`<input class="question-option" data-q="${i}" data-option="${j}" value="${escapeHTML(o)}" required />`).join('')}</div><label class="field"><span>Correct option (1-4)</span><input class="question-correct" data-q="${i}" type="number" min="1" max="4" value="${q[2]+1}" required /></label></div>`).join('');}
+function collectPsychometricQuestions(){const out=[];for(let i=0;i<20;i++){const text=document.querySelector(`.question-text[data-q="${i}"]`).value.trim();const options=[0,1,2,3].map(j=>document.querySelector(`.question-option[data-q="${i}"][data-option="${j}"]`).value.trim());const correct=Number(document.querySelector(`.question-correct[data-q="${i}"]`).value)-1;out.push([text,options,correct]);}return out;}
+async function createJob(event){event.preventDefault();const payload={title:document.getElementById('jobTitle').value.trim(),location:document.getElementById('jobLocation').value.trim(),mode:document.getElementById('jobMode').value,type:document.getElementById('jobType').value,salary:document.getElementById('jobSalary').value.trim()||'Not specified',tags:document.getElementById('jobSkills').value.split(',').map(x=>x.trim()).filter(Boolean),description:document.getElementById('jobDescription').value.trim(),application_deadline:document.getElementById('jobDeadline').value,pass_mark:Number(document.getElementById('passMark').value),psychometric_questions:collectPsychometricQuestions()};try{const data=await api('/jobs',{method:'POST',body:JSON.stringify(payload)});state.jobs.unshift(data.job);closeModal();state.page='postings';render();showToast('Job published. It is now visible to job seekers.');}catch(error){showApiError(error,'Could not publish the job.');}}
+function closeModal(){document.getElementById('modal')?.remove();}
+
+async function applyJob(jobId){if(state.role!=='jobseeker')return showToast('Only job seekers can apply.','error');const job=state.jobs.find(j=>j.id===jobId);if(!job)return showToast('Job not found.','error');if(!state.user.profile?.cvName)return showToast('Upload your CV before applying.','error');if(!state.user.profileComplete)return showToast('Complete your profile before applying.','error');try{const data=await api(`/jobs/${encodeURIComponent(jobId)}/applications`,{method:'POST'});state.applications.unshift(data.application);showToast('Application created. Complete the required 20-question psychometric test.');setTimeout(()=>startPsychometricTest(data.application.id),250);}catch(error){showApiError(error,'Could not submit your application.');}}
+function startPsychometricTest(appId){const app=state.applications.find(a=>a.id===appId&&a.applicantEmail===state.user.email);const job=state.jobs.find(j=>j.id===app?.jobId);if(!app||!job)return showToast('Application not found.','error');const questions=job.psychometricQuestions;document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><div class="modal modal-wide"><div class="modal-head"><div><h2>Psychometric assessment</h2><p class="muted">${escapeHTML(job.title)} · 20 questions · Pass mark: ${job.passMark}%</p></div><button class="icon-btn" onclick="closeModal()">×</button></div><form onsubmit="submitPsychometricTest(event,'${app.id}')"><div class="assessment-list">${questions.map((q,i)=>`<div class="assessment-question"><h3>${i+1}. ${escapeHTML(q[0])}</h3>${q[1].map((o,j)=>`<label class="radio-option"><input type="radio" name="q${i}" value="${j}" required /><span>${escapeHTML(o)}</span></label>`).join('')}</div>`).join('')}</div><div class="modal-footer"><button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Submit assessment</button></div></form></div></div>`);}
+async function submitPsychometricTest(event,appId){event.preventDefault();const app=state.applications.find(a=>a.id===appId),job=state.jobs.find(j=>j.id===app?.jobId);if(!app||!job)return showToast('Application not found.','error');const answers=job.psychometricQuestions.map((_,i)=>{const selected=document.querySelector(`input[name="q${i}"]:checked`);return selected?Number(selected.value):null;});try{const data=await api(`/applications/${encodeURIComponent(appId)}/assessment`,{method:'POST',body:JSON.stringify({answers})});state.applications[state.applications.findIndex(a=>a.id===appId)]=data.application;closeModal();render();showToast(`Assessment submitted: ${data.application.psychometricScore}%.`);}catch(error){showApiError(error,'Could not submit the assessment.');}}
+async function reviewCandidate(id){if(state.role!=='organization')return showToast('Only organizations can review candidates.','error');const app=state.applications.find(a=>a.id===id);if(!app)return showToast('Application not found.','error');if(app.psychometricScore===null)return showToast('The job seeker must complete the test first.','error');const eligible=app.psychometricScore>=app.passMark;try{const data=await api(`/applications/${encodeURIComponent(id)}/review`,{method:'POST',body:JSON.stringify({decision:eligible?'interview':'not_selected'})});state.applications[state.applications.findIndex(a=>a.id===id)]=data.application;render();showToast(eligible?'Candidate invited to interview.':'Candidate marked as not selected.');}catch(error){showApiError(error,'Could not review this candidate.');}}
+async function showNotifications(){try{const data=await api('/notifications'),list=data.notifications||[];document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><div class="modal"><div class="modal-head"><h2>Notifications</h2><button class="icon-btn" onclick="closeModal()">×</button></div>${list.length?list.slice(0,10).map(n=>`<div class="list-card"><div>${escapeHTML(n.message)}<small class="muted">${new Date(n.date).toLocaleString()}</small></div></div>`).join(''):emptyState('No notifications','Your real application and account events will appear here.','','closeModal')}</div></div>`);}catch(error){showApiError(error,'Could not load notifications.');}}
+function toggleTheme(){state.dark=!state.dark;render();}
+
+function defaultPsychometricQuestions(){return [['When facing a complex problem, what is your first step?',['Break it into smaller parts','Ignore it until later','Choose the fastest guess','Ask someone else to solve it'],0],['Which behavior best demonstrates reliability?',['Meeting commitments consistently','Changing priorities without notice','Avoiding deadlines','Waiting for reminders'],0],['How should you respond to constructive feedback?',['Listen, clarify, and improve','Ignore it','Argue immediately','Blame someone else'],0],['What is the best approach when priorities conflict?',['Clarify urgency and align with stakeholders','Do everything at once','Choose randomly','Stop working'],0],['Which action best shows teamwork?',['Sharing information and supporting shared goals','Keeping information private','Competing against teammates','Avoiding collaboration'],0],['When learning a new skill, what is most effective?',['Practice, feedback, and continuous improvement','Avoiding difficult tasks','Memorizing without practice','Waiting for perfect conditions'],0],['What should you do when you make a mistake?',['Acknowledge it, learn, and correct it','Hide it','Blame others','Repeat it'],0],['Which is the strongest communication habit?',['Be clear, concise, and confirm understanding','Use complicated language','Avoid questions','Send incomplete information'],0],['How do you handle an unfamiliar task?',['Research, ask focused questions, and begin systematically','Refuse immediately','Guess without checking','Wait indefinitely'],0],['What does professional integrity mean?',['Acting honestly and responsibly','Doing only what benefits you','Hiding important facts','Breaking commitments'],0],['Which approach supports good decision-making?',['Use relevant evidence and consider consequences','Decide only on emotion','Avoid decisions forever','Copy others without thinking'],0],['How should you manage a tight deadline?',['Prioritize essential work and communicate risks early','Ignore the deadline','Work without a plan','Wait until the last minute'],0],['What is a productive response to disagreement?',['Discuss the issue respectfully and seek understanding','Personalize the conflict','Refuse to listen','End the project'],0],['Which behavior reflects adaptability?',['Adjusting your approach when circumstances change','Rejecting all change','Ignoring new information','Repeating an ineffective method'],0],['What is a good way to improve performance?',['Set measurable goals and review progress','Avoid measurement','Wait for others to decide','Change goals daily'],0],['When collaborating remotely, what is especially important?',['Clear updates, documentation, and dependable follow-through','Silence','Unclear responsibilities','Avoiding written communication'],0],['Which action demonstrates initiative?',['Identifying a need and taking appropriate action','Waiting for every instruction','Avoiding responsibility','Complaining without proposing solutions'],0],['What is the best response to a new priority from a manager?',['Clarify impact on existing priorities and adjust the plan','Ignore it','Abandon everything without discussion','Complain to colleagues'],0],['Which mindset best supports career growth?',['Curiosity and willingness to learn','Believing skills cannot improve','Avoiding challenges','Rejecting feedback'],0],['What should you do before submitting important work?',['Review it for accuracy and completeness','Submit immediately without checking','Ask someone else to take responsibility','Delete it'],0]];}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
